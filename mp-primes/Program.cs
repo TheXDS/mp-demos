@@ -37,6 +37,18 @@ namespace TheXDS.Experiments.Mp
     {
         private static void Main(string[] args)
         {
+            // Configurar prioridad del proceso.
+            var thisProcess = System.Diagnostics.Process.GetCurrentProcess();
+            try
+            {
+                thisProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.RealTime;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"No fue posible cambiar la prioridad de esta aplicación. Continuando con prioridad {thisProcess.PriorityClass}");
+            }
+
             // Inicializar un arreglo de datos gigantesco
             var c = new int[262144];
             var u = c.GetUpperBound(0);
